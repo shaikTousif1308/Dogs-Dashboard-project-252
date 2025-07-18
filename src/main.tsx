@@ -1,10 +1,17 @@
-import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-import App from './App.tsx';
-import './index.css';
+import { Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
 
-createRoot(document.getElementById('root')!).render(
-  <BrowserRouter basename="/Dogs-Dashboard-project-252">
-    <App />
-  </BrowserRouter>
-);
+function App() {
+  return (
+    <div className="p-4">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </div>
+  );
+}
+
+export default App;
+
