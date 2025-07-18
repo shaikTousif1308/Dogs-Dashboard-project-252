@@ -111,14 +111,14 @@ export default function DiseaseDetection() {
   };
 
   return (
-    <Card className="w-full">
-      <CardHeader>
+    <Card className="w-full h-full flex flex-col">
+      <CardHeader className="flex-shrink-0">
         <CardTitle className="flex items-center gap-2">
           <Stethoscope className="w-5 h-5 text-primary" />
           Dog Health & Disease Detection
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-6 flex-1 flex flex-col">
         <div className="p-4 bg-yellow-50 dark:bg-yellow-950 rounded-lg border border-yellow-200 dark:border-yellow-800">
           <p className="text-yellow-800 dark:text-yellow-200 text-sm">
             <AlertTriangle className="w-4 h-4 inline mr-1" />

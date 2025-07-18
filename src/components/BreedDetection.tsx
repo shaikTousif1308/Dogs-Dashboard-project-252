@@ -84,14 +84,14 @@ export default function BreedDetection() {
   };
 
   return (
-    <Card className="w-full">
-      <CardHeader>
+    <Card className="w-full h-full flex flex-col">
+      <CardHeader className="flex-shrink-0">
         <CardTitle className="flex items-center gap-2">
           <Dog className="w-5 h-5 text-primary" />
           Dog Breed Detection & Care
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-6 flex-1 flex flex-col">
         <div className="space-y-4">
           <Input
             ref={fileInputRef}

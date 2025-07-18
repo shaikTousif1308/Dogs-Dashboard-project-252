@@ -37,13 +37,17 @@ const Index = () => {
           {/* Main Features Grid */}
           <div className="grid gap-8 lg:grid-cols-2">
             {/* Breed Detection */}
-            <section>
-              <BreedDetection />
+            <section className="h-full">
+              <div className="h-full">
+                <BreedDetection />
+              </div>
             </section>
 
             {/* Disease Detection */}
-            <section>
-              <DiseaseDetection />
+            <section className="h-full">
+              <div className="h-full">
+                <DiseaseDetection />
+              </div>
             </section>
           </div>
 
