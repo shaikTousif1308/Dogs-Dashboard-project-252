@@ -8,10 +8,50 @@ import { useToast } from "@/hooks/use-toast";
 export default function WalkTracker() {
   const [walksCompleted, setWalksCompleted] = useState(0);
   const [lastWalkTime, setLastWalkTime] = useState<string | null>(null);
+  const [nextResetTime, setNextResetTime] = useState<string>("");
   const { toast } = useToast();
 
   const totalWalks = 3;
   const progressPercentage = (walksCompleted / totalWalks) * 100;
+
+  // Function to get next midnight
+  const getNextMidnight = () => {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(0, 0, 0, 0);
+    return tomorrow;
+  };
+
+  // Function to reset daily progress
+  const resetDailyProgress = () => {
+    setWalksCompleted(0);
+    setLastWalkTime(null);
+    const today = new Date().toDateString();
+    localStorage.setItem('dogWalkProgress', '0');
+    localStorage.setItem('dogWalkDate', today);
+    localStorage.removeItem('lastWalkTime');
+    
+    toast({
+      title: "🌅 New Day Started!",
+      description: "Walk tracker has been reset for today",
+    });
+  };
+
+  // Function to update next reset time display
+  const updateNextResetTime = () => {
+    const nextMidnight = getNextMidnight();
+    const timeUntilReset = nextMidnight.getTime() - new Date().getTime();
+    
+    if (timeUntilReset <= 0) {
+      resetDailyProgress();
+      return;
+    }
+    
+    const hours = Math.floor(timeUntilReset / (1000 * 60 * 60));
+    const minutes = Math.floor((timeUntilReset % (1000 * 60 * 60)) / (1000 * 60));
+    
+    setNextResetTime(`${hours}h ${minutes}m`);
+  };
 
   useEffect(() => {
     // Load saved progress from localStorage
@@ -23,13 +63,48 @@ export default function WalkTracker() {
       setWalksCompleted(parseInt(saved));
     } else if (savedDate !== today) {
       // Reset for new day
-      setWalksCompleted(0);
-      localStorage.setItem('dogWalkDate', today);
-      localStorage.setItem('dogWalkProgress', '0');
+      resetDailyProgress();
     }
 
     const savedTime = localStorage.getItem('lastWalkTime');
     if (savedTime) setLastWalkTime(savedTime);
+
+    // Update next reset time immediately
+    updateNextResetTime();
+
+    // Set up interval to check for day change every minute
+    const interval = setInterval(() => {
+      const currentDate = new Date().toDateString();
+      const storedDate = localStorage.getItem('dogWalkDate');
+      
+      // Check if day has changed
+      if (storedDate !== currentDate) {
+        resetDailyProgress();
+      }
+      
+      // Update countdown timer
+      updateNextResetTime();
+    }, 60000); // Check every minute
+
+    // Also check more frequently near midnight (every 10 seconds in the last 2 minutes)
+    const midnightInterval = setInterval(() => {
+      const now = new Date();
+      const nextMidnight = getNextMidnight();
+      const timeUntilMidnight = nextMidnight.getTime() - now.getTime();
+      
+      if (timeUntilMidnight <= 2 * 60 * 1000) { // Less than 2 minutes until midnight
+        updateNextResetTime();
+        
+        if (timeUntilMidnight <= 0) {
+          resetDailyProgress();
+        }
+      }
+    }, 10000); // Check every 10 seconds
+
+    return () => {
+      clearInterval(interval);
+      clearInterval(midnightInterval);
+    };
   }, []);
 
   const completeWalk = () => {
@@ -86,6 +161,13 @@ export default function WalkTracker() {
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Clock className="w-4 h-4" />
             Last walk: {lastWalkTime}
+          </div>
+        )}
+
+        {nextResetTime && (
+          <div className="flex items-center justify-between text-xs text-muted-foreground p-2 bg-secondary/50 rounded">
+            <span>Next reset in: {nextResetTime}</span>
+            <span>🕛 00:00</span>
           </div>
         )}
 
