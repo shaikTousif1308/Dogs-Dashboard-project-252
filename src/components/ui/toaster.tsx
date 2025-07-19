@@ -1,6 +1,4 @@
 import { useToast } from "@/hooks/use-toast"
-import { Toaster } from "@/components/ui/toaster";
-
 import {
   Toast,
   ToastClose,
