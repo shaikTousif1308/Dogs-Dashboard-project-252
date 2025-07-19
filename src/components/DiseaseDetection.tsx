@@ -111,11 +111,11 @@ export default function DiseaseDetection() {
   };
 
   return (
-    <Card className="w-full h-full flex flex-col">
+    <Card className="w-full h-full flex flex-col glass-card border-white/20">
       <CardHeader className="flex-shrink-0">
         <CardTitle className="flex items-center gap-2">
-          <Stethoscope className="w-5 h-5 text-primary" />
-          Dog Health & Disease Detection
+          <Stethoscope className="w-5 h-5 text-primary pulse-glow" />
+          <span className="gradient-text">Dog Health & Disease Detection</span>
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6 flex-1 flex flex-col">
@@ -168,7 +168,7 @@ export default function DiseaseDetection() {
             <Button 
               onClick={analyzeDisease}
               disabled={isAnalyzing}
-              className="w-full"
+              className="w-full hero-button text-white border-0"
               size="lg"
             >
               {isAnalyzing ? "Analyzing Health..." : "Analyze Health Condition"}

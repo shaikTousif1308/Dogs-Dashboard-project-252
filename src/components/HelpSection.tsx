@@ -73,11 +73,11 @@ export default function HelpSection() {
   };
 
   return (
-    <Card className="w-full">
+    <Card className="w-full glass-card border-white/20">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <HelpCircle className="w-5 h-5 text-primary" />
-          Dog Care Help Center
+          <HelpCircle className="w-5 h-5 text-primary pulse-glow" />
+          <span className="gradient-text">Dog Care Help Center</span>
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -97,7 +97,7 @@ export default function HelpSection() {
             <Button 
               onClick={handleAskQuestion}
               disabled={!question.trim()}
-              className="w-full sm:w-auto"
+              className="w-full sm:w-auto hero-button text-white border-0"
             >
               <Send className="w-4 h-4 mr-2" />
               Submit Question

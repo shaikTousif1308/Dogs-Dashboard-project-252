@@ -134,11 +134,11 @@ export default function WalkTracker() {
   };
 
   return (
-    <Card className="w-full">
+    <Card className="w-full glass-card border-white/20">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Activity className="w-5 h-5 text-primary" />
-          Daily Walk Tracker
+          <Activity className="w-5 h-5 text-primary pulse-glow" />
+          <span className="gradient-text">Daily Walk Tracker</span>
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -174,7 +174,7 @@ export default function WalkTracker() {
         <Button 
           onClick={completeWalk}
           disabled={walksCompleted >= totalWalks}
-          className="w-full"
+          className="w-full hero-button text-white border-0"
           size="lg"
         >
           <CheckCircle className="w-4 h-4 mr-2" />

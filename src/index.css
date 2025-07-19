@@ -1,10 +1,140 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import 'aos/dist/aos.css';
 
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */
+
+/* Animated Background */
+.animated-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, hsl(220 14% 96%) 0%, hsl(210 20% 98%) 100%);
+  z-index: -1;
+  overflow: hidden;
+}
+
+.dark .animated-background {
+  background: linear-gradient(135deg, hsl(222.2 84% 4.9%) 0%, hsl(217.2 32.6% 17.5%) 100%);
+}
+
+.floating-paws {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.paw-print {
+  position: absolute;
+  color: hsl(var(--primary) / 0.1);
+  font-size: 2rem;
+  animation: floatingPaws 12s ease-in-out infinite;
+  opacity: 0;
+}
+
+.dark .paw-print {
+  color: hsl(var(--primary) / 0.2);
+}
+
+@keyframes floatingPaws {
+  0% { 
+    opacity: 0; 
+    transform: translateY(100vh) scale(0.5) rotate(0deg); 
+  }
+  10% { 
+    opacity: 1; 
+    transform: translateY(80vh) scale(1) rotate(10deg); 
+  }
+  50% { 
+    opacity: 0.8; 
+    transform: translateY(20vh) scale(1.2) rotate(-5deg); 
+  }
+  90% { 
+    opacity: 0.3; 
+    transform: translateY(-10vh) scale(0.8) rotate(15deg); 
+  }
+  100% { 
+    opacity: 0; 
+    transform: translateY(-20vh) scale(0.3) rotate(0deg); 
+  }
+}
+
+/* Glassmorphism Effects */
+.glass-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.dark .glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Enhanced Button Styles */
+.hero-button {
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(217.2 91.2% 59.8%) 100%);
+  box-shadow: 0 10px 30px hsl(var(--primary) / 0.3);
+  transition: all 0.3s ease;
+}
+
+.hero-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px hsl(var(--primary) / 0.4);
+}
+
+/* Gradient Text */
+.gradient-text {
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(217.2 91.2% 59.8%) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card Hover Effects */
+.hover-lift {
+  transition: all 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.dark .hover-lift:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Progress Ring Animation */
+.progress-ring {
+  transition: stroke-dashoffset 0.5s ease-in-out;
+}
+
+/* Pulse Animation */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
 
 @layer base {
   :root {
